@@ -16,7 +16,6 @@ function HomePage() {
           display: "flex",
           flexDirection: "column",
           flex: 1,
-          // backgroundColor: "red",
         }}
       >
         <Menu
@@ -74,7 +73,7 @@ function Timeline({ searchValue, ...props }) {
       {playlistNames.map((playlistName) => {
         const videos = props.playlists[playlistName];
         return (
-          <section>
+          <section key={playlistName}>
             <h2>{playlistName}</h2>
             <div>
               {videos
@@ -85,7 +84,7 @@ function Timeline({ searchValue, ...props }) {
                 })
                 .map((video) => {
                   return (
-                    <a href={video.url}>
+                    <a key={video.url} href={video.url}>
                       <img src={video.thumb} />
                       <span>{video.title}</span>
                     </a>
