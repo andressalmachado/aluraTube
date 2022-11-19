@@ -1,9 +1,15 @@
 import React from "react";
 import { StyledRegisterVideo } from "./styles";
+import { createClient } from "@supabase/supabase-js";
 
 function useForm() {
   const [values, setValues] = React.useState({ titulo: "Olá", url: "mundo" });
 }
+
+const PROJECT_URL = "https://otageduewyobcvqcrxxe.supabase.co";
+const PROJECT_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90YWdlZHVld3lvYmN2cWNyeHhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjgxNzY3OTksImV4cCI6MTk4Mzc1Mjc5OX0.U1mWcn2uN6MI0aOa9SeNzhMrfyuX78I-I_9J-OwCV5Y";
+const supabase = createClient(PROJECT_URL, PROJECT_KEY);
 
 export default function RegisterVideo() {
   const formCadastro = useForm();
@@ -18,6 +24,12 @@ export default function RegisterVideo() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            supabase.from("video").insert({
+              title: "",
+              url: "",
+              thumb: "",
+              playlist:""
+            });
           }}
         >
           <div>
