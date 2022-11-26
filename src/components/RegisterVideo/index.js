@@ -1,65 +1,67 @@
 import React from "react";
 import { StyledRegisterVideo } from "./styles";
-import { createClient } from "@supabase/supabase-js";
 
-function useForm() {
-  const [values, setValues] = React.useState({ titulo: "Olá", url: "mundo" });
+function useForm(propsDoForm) {
+  const [values, setValues] = React.useState(propsDoForm.initialValues);
+
+  return {
+    values,
+    handleChange: (evento) => {
+      console.log(evento.target);
+      const value = evento.target.value;
+      const name = evento.target.name;
+      setValues({
+        ...values,
+        [name]: value,
+      });
+    },
+    clearForm() {
+      setValues({});
+    },
+  };
 }
 
-const PROJECT_URL = "https://otageduewyobcvqcrxxe.supabase.co";
-const PROJECT_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90YWdlZHVld3lvYmN2cWNyeHhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjgxNzY3OTksImV4cCI6MTk4Mzc1Mjc5OX0.U1mWcn2uN6MI0aOa9SeNzhMrfyuX78I-I_9J-OwCV5Y";
-const supabase = createClient(PROJECT_URL, PROJECT_KEY);
-
 export default function RegisterVideo() {
-  const formCadastro = useForm();
-  const [formVisivel, setFormVisivel] = React.useState(false);
+  const formCadastro = useForm({
+    initialValues: { titulo: "Frost punk", url: "https://youtube.." },
+  });
+  const [formVisivel, setFormVisivel] = React.useState(true);
 
   return (
     <StyledRegisterVideo>
       <button className="add-video" onClick={() => setFormVisivel(true)}>
         +
       </button>
+
       {formVisivel ? (
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            supabase.from("video").insert({
-              title: "",
-              url: "",
-              thumb: "",
-              playlist:""
-            });
+          onSubmit={(evento) => {
+            evento.preventDefault();
+            console.log(formCadastro.values);
+
+            setFormVisivel(false);
+            formCadastro.clearForm();
           }}
         >
           <div>
             <button
+              type="button"
               className="close-modal"
               onClick={() => setFormVisivel(false)}
             >
               X
             </button>
             <input
-              placeholder="Título do vídeo"
-              value={values.titulo}
-              onChange={(evento) => {
-                const value = evento.target.value;
-                setValues({
-                  ...values,
-                  titulo: value,
-                });
-              }}
+              placeholder="Titulo do vídeo"
+              name="titulo"
+              value={formCadastro.values.titulo}
+              onChange={formCadastro.handleChange}
             />
             <input
               placeholder="URL"
-              value={values.url}
-              onChange={(evento) => {
-                const value = evento.target.value;
-                setValues({
-                  ...values,
-                  url: value,
-                });
-              }}
+              name="url"
+              value={formCadastro.values.url}
+              onChange={formCadastro.handleChange}
             />
             <button type="submit">Cadastrar</button>
           </div>
