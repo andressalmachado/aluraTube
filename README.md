@@ -1,7 +1,9 @@
+<a href = "https://portfolio-mu-green.vercel.app/" target="_blank"><img src="https://user-images.githubusercontent.com/31052821/218551551-cf8771b2-d8b3-4f48-b2c1-b43c4fbf7fae.png"></a>
+
 # aluraTube
 Projeto desenvolvido na Imersão React da Alura, onde foi proposto realizar uma interface semelhante ao Youtube.
 
-## 📁 Acesso
+## 📁 Acesso ao projeto
 [Clicando aqui](https://aluratube-dun.vercel.app/), você terá acesso ao projeto.
 <br><br>
 
